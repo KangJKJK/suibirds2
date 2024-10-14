@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 환경 변수 설정
-export WORK="/root/Birds-Sui"
+export WORK="/root/birds"
 export NVM_DIR="$HOME/.nvm"
 
 # 색상 정의
