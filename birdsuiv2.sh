@@ -39,18 +39,18 @@ case $choice in
         rm -rf "$WORK"
     fi
     
+    # 기존 작업 공간 확인 및 삭제
+    mkdir -p "$WORK"
+
     # GitHub에서 코드 복사
     echo -e "${YELLOW}GitHub에서 코드 복사 중...${NC}"
     git clone https://github.com/hokireceh/birds.git
-
-    # 기존 작업 공간 확인 및 삭제, 새 작업 공간 생성 및 이동
-    mkdir -p "$WORK"
     cd "$WORK"
 
     # 필수 패키지 설치
     echo -e "${YELLOW}시스템 업데이트 및 필수 패키지 설치 중...${NC}"
     sudo apt update
-    sudo apt install -y python3 python3-pip git
+    sudo apt install -y python3 python3-pip
     pip3 install -r requirements.txt
 
     echo -e "${GREEN}여러 개의 query_id를 입력할 경우 줄바꿈으로 구분하세요.${NC}"
