@@ -27,9 +27,8 @@ case $choice in
   1)
     echo -e "${GREEN}Bird 봇을 새로 설치합니다.${NC}"
 
-    #필요한 패키지 설치
+    # 사전 필수 패키지 설치
     echo -e "${YELLOW}시스템 업데이트 및 필수 패키지 설치 중...${NC}"
-    rm -rf /root/birds
     sudo apt update
     sudo apt install -y git
 
@@ -38,9 +37,6 @@ case $choice in
         echo -e "${YELLOW}기존 작업 공간 삭제 중...${NC}"
         rm -rf "$WORK"
     fi
-    
-    # 기존 작업 공간 확인 및 삭제
-    mkdir -p "$WORK"
 
     # GitHub에서 코드 복사
     echo -e "${YELLOW}GitHub에서 코드 복사 중...${NC}"
