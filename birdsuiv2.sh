@@ -13,7 +13,6 @@ NC='\033[0m' # 색상 초기화
 
 echo -e "${GREEN}Birdsui 봇을 설치합니다.${NC}"
 echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
-echo -e "${GREEN}출처: https://github.com/hokireceh/birds${NC}"
 
 echo -e "${CYAN}이 봇은 다음과 같은 기능을 갖고 있습니다.${NC}"
 echo -e "${CYAN}웜캐칭 / 에그업그레이드/ 에그크래킹 / 각종 태스크${NC}"
@@ -40,7 +39,7 @@ case $choice in
 
     # GitHub에서 코드 복사
     echo -e "${YELLOW}GitHub에서 코드 복사 중...${NC}"
-    git clone https://github.com/hokireceh/birds.git
+    git clone https://github.com/KangJKJK/birds.git
     cd "$WORK"
 
     # 필수 패키지 설치
