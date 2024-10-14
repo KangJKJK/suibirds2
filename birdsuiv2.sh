@@ -79,16 +79,17 @@ case $choice in
             proxies+=("$line")
         done
 
-        # JSON 형식으로 데이터 구성
-        json_data='{"accounts":['
-        for proxy in "${proxies[@]}"; do
-            json_data+='{"acc_info":"","proxy_info":"'$proxy'"},'
-        done
-        json_data=${json_data%,}  # 마지막 쉼표 제거
-        json_data+=']}'
+        # Python을 사용하여 JSON 생성
+        python3 -c "
+import json
+import sys
 
-        # data-proxy.json 파일에 저장
-        echo "$json_data" > "$WORK/data-proxy.json"
+proxies = sys.argv[1:]
+data = {
+    'accounts': [{'acc_info': '', 'proxy_info': proxy} for proxy in proxies]
+}
+print(json.dumps(data, ensure_ascii=False))
+" "${proxies[@]}" > "$WORK/data-proxy.json"
 
         echo -e "${GREEN}프록시 정보가 data-proxy.json 파일에 저장되었습니다.${NC}"
         
