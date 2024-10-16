@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 환경 변수 설정
-export WORK="/root/birds"
+export WORK="/root/Birds-Sui"
 export NVM_DIR="$HOME/.nvm"
 
 # 색상 정의
@@ -13,6 +13,7 @@ NC='\033[0m' # 색상 초기화
 
 echo -e "${GREEN}Birdsui 봇을 설치합니다.${NC}"
 echo -e "${GREEN}스크립트작성자: https://t.me/kjkresearch${NC}"
+echo -e "${GREEN}출처: https://github.com/Bachtran301/Birds-Sui${NC}"
 
 echo -e "${CYAN}이 봇은 다음과 같은 기능을 갖고 있습니다.${NC}"
 echo -e "${CYAN}웜캐칭 / 에그업그레이드/ 에그크래킹 / 각종 태스크${NC}"
@@ -39,16 +40,20 @@ case $choice in
 
     # GitHub에서 코드 복사
     echo -e "${YELLOW}GitHub에서 코드 복사 중...${NC}"
-    git clone https://github.com/KangJKJK/birds.git
+    git clone https://github.com/Bachtran301/Birds-Sui.git
     cd "$WORK"
 
-    # 필수 패키지 설치
-    echo -e "${YELLOW}시스템 업데이트 및 필수 패키지 설치 중...${NC}"
-    sudo apt update
-    sudo apt install -y python3 python3-pip
-    pip3 install -r requirements.txt
+    # Node.js LTS 버전 설치 및 사용
+    echo -e "${YELLOW}Node.js LTS 버전을 설치하고 설정 중...${NC}"
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # nvm을 로드합니다
+    nvm install --lts
+    nvm use --lts
+    npm install
 
-    echo -e "${GREEN}여러 개의 query_id를 입력할 경우 줄바꿈으로 구분하세요.${NC}"
+    echo -e "${YELLOW}Web텔레그렘에 접속후 F12를 누르시고 게임을 실행하세요${NC}"
+    read -p "애플리케이션-세션저장소-Birds와 관련된 URL클릭 후 나오는 UserID나 QueryID를 적어두세요 (엔터) : "
+    echo -e "${GREEN}다계정의 query_id를 입력할 경우 줄바꿈으로 구분하세요.${NC}"
     echo -e "${GREEN}입력을 마치려면 엔터를 두 번 누르세요.${NC}"
     echo -e "${YELLOW}query_id를 입력하세요:${NC}"
     
@@ -69,33 +74,19 @@ case $choice in
         echo -e "${YELLOW}여러 개의 프록시는 줄바꿈으로 구분하세요.${NC}"
         echo -e "${YELLOW}입력을 마치려면 엔터를 두 번 누르세요.${NC}"
 
-        # 프록시 정보를 임시로 저장할 배열 선언
-        proxies=()
-
-        # 프록시 정보 입력 받기
+        # 프록시 정보를 직접 proxy.txt 파일에 저장
+        > "$WORK/proxy.txt"  # 파일 초기화
         while IFS= read -r line; do
             [[ -z "$line" ]] && break
-            proxies+=("$line")
+            echo "$line" >> "$WORK/proxy.txt"
         done
 
-        # Python을 사용하여 JSON 생성
-        python3 -c "
-import json
-import sys
+        echo -e "${GREEN}프록시 정보가 proxy.txt 파일에 저장되었습니다.${NC}"
 
-proxies = sys.argv[1:]
-data = {
-    'accounts': [{'acc_info': '', 'proxy_info': proxy} for proxy in proxies]
-}
-print(json.dumps(data, ensure_ascii=False))
-" "${proxies[@]}" > "$WORK/data-proxy.json"
-
-        echo -e "${GREEN}프록시 정보가 data-proxy.json 파일에 저장되었습니다.${NC}"
-        
         # 봇 구동
-        python3 bot-proxy.py
+        node birds.js
     else
-        python3 bot.py
+        node birds-proxy.js
     fi
     ;;
     
@@ -107,9 +98,9 @@ print(json.dumps(data, ensure_ascii=False))
     cd "$WORK"
     git pull
     if [[ "$use_proxy" == "y" || "$use_proxy" == "Y" ]]; then
-        python3 bot-proxy.py
+        node birds.js
     else
-        python3 bot.py
+        node birds-proxy.js
     fi
     ;;
 
