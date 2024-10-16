@@ -55,7 +55,7 @@ case $choice in
     read -p "애플리케이션-세션저장소-Birds와 관련된 URL클릭 후 나오는 UserID나 QueryID를 적어두세요 (엔터) : "
     echo -e "${GREEN}다계정의 query_id를 입력할 경우 줄바꿈으로 구분하세요.${NC}"
     echo -e "${GREEN}입력을 마치려면 엔터를 두 번 누르세요.${NC}"
-    echo -e "${YELLOW}query_id를 입력하세요:${NC}"
+    echo -e "${YELLOW}Userid를 입력하세요(user= 또는 query_id= 포함해서 입력):${NC}"
     
     # 쿼리 파일 생성 및 초기화
     {
