@@ -93,6 +93,9 @@ case $choice in
   2)
     echo -e "${GREEN}Bird 봇을 재실행합니다.${NC}"
     
+    # nvm을 로드합니다
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # nvm을 로드합니다
+
     # 사용자에게 프록시 사용 여부를 물어봅니다.
     read -p "프록시를 사용하시겠습니까? (y/n): " use_proxy
     cd "$WORK"
