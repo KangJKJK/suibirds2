@@ -84,9 +84,9 @@ case $choice in
         echo -e "${GREEN}프록시 정보가 proxy.txt 파일에 저장되었습니다.${NC}"
 
         # 봇 구동
-        node birds.js
-    else
         node birds-proxy.js
+    else
+        node birds.js
     fi
     ;;
     
@@ -101,9 +101,9 @@ case $choice in
     cd "$WORK"
     git pull
     if [[ "$use_proxy" == "y" || "$use_proxy" == "Y" ]]; then
-        node birds.js
-    else
         node birds-proxy.js
+    else
+        node birds.js
     fi
     ;;
 
